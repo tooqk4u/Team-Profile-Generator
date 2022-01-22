@@ -1,7 +1,7 @@
 const Employee = require('../lib/Employee.js');
 
 test('creates an employee object', () => {
-  const employee = new Employee('name');
+  const employee = new Employee;
 
-  expect(employee.name).toBe'('name')
+  expect(typeof(employee)).toBe('object');
 })
