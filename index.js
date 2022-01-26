@@ -10,9 +10,9 @@ const generateTeam = require("./src/page-template");
 const team = [];
 
 console.log(`
-===========================================================
+==========================================================
 Answer these questions to generate a new Team-Profile-Page
-===========================================================
+==========================================================
 `);
 
 // questions
@@ -21,7 +21,7 @@ const questions = () => {
     {
       type: "input",
       name: "name",
-      message: "Please enter team member's name.",
+      message: "What is the team member's name.",
       validate: (nameInput) => {
         if (nameInput) {
           return true;
@@ -64,6 +64,31 @@ const questions = () => {
       message: "Please select team member's role.",
       choices: ["Engineer", "Intern", "Manager"],
     },
-  ]);
+  ])
+  .then(function({name, role, id, email}) {
+    let roleInfo = "";
+    if (role === "Engineer") {
+        roleInfo = "GitHub username";
+    } else if (role === "Intern") {
+        roleInfo = "school name";
+    } else {
+        roleInfo = "office number";
+    }
+    inquirer.prompt([{
+        name: "roleInfo",
+        message: `Enter team member's ${roleInfo}`,
+    },
+    {
+        type: "list",
+        name: "addMembers",
+        message: "Would you like to add more team members?",
+        choices: [
+            "yes",
+            "no"
+        ],
+    }])
+  })
 };
+
+
 questions();
