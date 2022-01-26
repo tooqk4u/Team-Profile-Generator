@@ -23,6 +23,7 @@
     "jest": "^27.4.7"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "inquirer": "^8.2.0"
   }
 }
