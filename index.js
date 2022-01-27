@@ -5,9 +5,13 @@ const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 
-
 // team array
 const team = [];
+
+
+
+
+
 
 console.log(`
 ==========================================================
@@ -17,7 +21,7 @@ Answer these questions to generate a new Team-Profile-Page
 
 // questions
 const employeeQuestions = () => {
-  return inquirer
+  inquirer
     .prompt([
       {
         type: "input",
@@ -33,7 +37,7 @@ const employeeQuestions = () => {
         },
       },
       {
-        type: "input",
+        type: "number",
         name: "id",
         message: "What is their employee id? (enter a number)",
         validate: (idInput) => {
@@ -64,7 +68,7 @@ const employeeQuestions = () => {
         name: "role",
         message: "Please select employee's role.",
         choices: ["Manager", "Engineer", "Intern"],
-      },
+      }
     ])
     .then(function ({ name, role, id, email }) {
       let roleInfo = "";
@@ -83,18 +87,17 @@ const employeeQuestions = () => {
           },
           {
             type: "list",
-            name: "addMembers",
+            name: "addEmployees",
             message: "Would you like to add more employee's?",
             choices: ["yes", "no"],
           },
-        ])   
-        
-    });
+        ])
+                                                                                                      });
 };
- //create HTML
- function createHTML() {
-   const html =
-   `<!DOCTYPE html>
+
+// add create HTML function
+function createHTML() {
+  const html = `<!DOCTYPE html>
    <html lang="en">
      <head>
        <meta charset="UTF-8" />
@@ -121,12 +124,92 @@ const employeeQuestions = () => {
      </header>   
      <main>`;
 
-     fs.writeFile("./dist/output-HTML", html, function(err) {
-      if (err) {
-          console.log(err);
-         } 
-     }
-    )
-}; 
-employeeQuestions();
-createHTML();
+  fs.writeFile("./dist/output-HTML", html, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+}
+
+// add function that adds each employee to HTML
+
+function addEmployeeHTML(employee) {
+  return new Promise(function (resolve, reject) {
+  let name = employee.getName();
+  let id = employee.getId();
+  let email = employee.getEmail();
+  let role = employee.getRole();
+  let data = "";
+  if (role === "Manager") {
+    let officeNumber = employee.getOfficeNumber();
+    data = `     
+    <div class="container d-flex flex-wrap justify-content-around">
+      <div class="card rounded-3 bg-secondary m-2 "style="width: 300px" >
+      <div class="card-title bg-primary text-light p-2">
+         <h3>${name}</h3>
+         <h5><i class="fas fa-coffee"></i> ${role}</h5>
+      </div>
+      <div class="card-body ">
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">ID: ${id}</div>
+          <div class="list-group-item">Email: <ahref="mailto:${email}"> ${email}</a></div>
+          <div class="list-group-item">Office Number: ${officeNumber}</div>
+        </div>
+       </div>
+      </div>`;
+  } else if (role === "Engineer") {
+    let github = employee.getGithub();
+    data = `
+    <div class="card rounded-3 bg-secondary m-2 " style="width: 300px" >
+      <div class="card-title bg-primary text-light p-2">
+        <h3>${name}</h3>
+        <h5><i class="fas fa-glasses"></i> ${role}</h5></div>
+      <div class="card-body ">
+        <div class="list-group list-group-flush">
+          <div class="list-group-item">ID: ${id}</div>
+          <div class="list-group-item">Email:<a href="mailto:${email}"> ${email}</a></div>
+          <div class="list-group-item">GitHub: <a href="https://github.com/${github}"target="_blank"> ${github}</a></div>
+        </div>
+     </div>
+    </div>`;
+  } else if (role === "Intern") {
+    let school = employee.getSchool();
+    data = `
+  <div class="card rounded-3 bg-secondary m-2" style="width: 300px" >
+   <div class="card-title bg-primary text-light p-2">
+     <h3>${name}</h3>
+     <h5><i class="fas fa-school"></i> ${role}</h5>
+   </div>
+  <div class="card-body ">
+    <div class="list-group list-group-flush">
+      <div class="list-group-item">ID: ${id}</div>
+      <div class="list-group-item">Email: <ahref="mailto:${email}"> ${email}</a></div>
+      <div class="list-group-item">School:<ahref="https://google.com/search?q=${school}"target="_blank">${school}</a></div>
+    </div>
+  </div>`;
+  }
+
+  fs.appendFile("./dist/output-HTML", data, function (err) {
+    if (err) {
+      return reject(err);
+    }
+    return resolve();
+  });
+});
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
