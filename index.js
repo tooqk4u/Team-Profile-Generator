@@ -92,7 +92,25 @@ const employeeQuestions = () => {
             choices: ["yes", "no"],
           },
         ])
-                                                                                                      });
+        .then(function ({ roleInfo, addEmployees }) {
+          let newEmployee;
+          if (role === "Engineer") {
+            newEmployee = new Engineer(name, id, email, roleInfo);
+          } else if (role === "Intern") {
+            newEmployee = new Intern(name, id, email, roleInfo);
+          } else {
+            newEmployee = new Manager(name, id, email, roleInfo);
+          }
+          team.push(newEmployee);
+          addEmployeeHTML(newEmployee).then(function () {
+            if (addEmployees === "yes") {
+              employeeQuestions();
+            } else {
+              finishHTML();
+            }
+          });
+        });
+      });
 };
 
 // add create HTML function
@@ -195,8 +213,28 @@ function addEmployeeHTML(employee) {
     }
     return resolve();
   });
-});
+ });
 }
+
+function finishHTML() {
+  const html = ` </div>
+  </div>
+  
+  </body>
+  </html>`;
+
+  fs.appendFile("./dist/output-HTML", 
+html, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(
+        "Team Profile complete! Check outoutput-HTML in dist directory to see the output!"
+      );
+    }
+  });
+}
+
 
 
 
