@@ -8,10 +8,10 @@ const Intern = require("./lib/Intern");
 // team array
 const team = [];
 
-
-
-
-
+function initialize() {
+  createHTML();
+  employeeQuestions();
+}
 
 console.log(`
 ==========================================================
@@ -120,29 +120,18 @@ function createHTML() {
      <head>
        <meta charset="UTF-8" />
        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-       <meta name="viewport" content="width=device-width, 
-   initial-scale=1.0" />
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/
-   dist/css/bootstrap.min.css" rel="stylesheet" 
-   integrity="sha384-
-   +0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7
-   +AMvyTG2x" crossorigin="anonymous">
-       <link rel="stylesheet" href="https://use.fontawesome.com/
-   releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ
-   +1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" 
-   crossorigin="anonymous"/>
+       <meta name="viewport" content="width=device-width, initial-scale=1.0" />       
+       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
        <link rel="stylesheet" href="./dist/style.css">
-     
        <title>Team Profile</title>
      </head>
      <body class="bg-light">  
        <header>
-         <h1 class="bg-danger bg-gradient text-center text-light 
-   p-3">Team Profile</h1>
-     </header>   
-     <main>`;
+         <h1 class="bg-danger bg-gradient text-center text-light p-3">Team Profile</h1>
+       </header>`;
 
-  fs.writeFile("./dist/output-HTML", html, function (err) {
+  fs.writeFile("./dist/index.html", html, function (err) {
     if (err) {
       console.log(err);
     }
@@ -170,7 +159,7 @@ function addEmployeeHTML(employee) {
       <div class="card-body ">
         <div class="list-group list-group-flush">
           <div class="list-group-item">ID: ${id}</div>
-          <div class="list-group-item">Email: <ahref="mailto:${email}"> ${email}</a></div>
+          <div class="list-group-item">Email: <a href="mailto:${email}"> ${email}</a></div>
           <div class="list-group-item">Office Number: ${officeNumber}</div>
         </div>
        </div>
@@ -201,13 +190,14 @@ function addEmployeeHTML(employee) {
   <div class="card-body ">
     <div class="list-group list-group-flush">
       <div class="list-group-item">ID: ${id}</div>
-      <div class="list-group-item">Email: <ahref="mailto:${email}"> ${email}</a></div>
-      <div class="list-group-item">School:<ahref="https://google.com/search?q=${school}"target="_blank">${school}</a></div>
+      <div class="list-group-item">Email: <a href="mailto:${email}"> ${email}</a></div>
+      <div class="list-group-item">School:<a href="https://google.com/search?q=${school}"target="_blank">${school}</a></div>
     </div>
+   </div>
   </div>`;
   }
 
-  fs.appendFile("./dist/output-HTML", data, function (err) {
+  fs.appendFile("./dist/index.html", data, function (err) {
     if (err) {
       return reject(err);
     }
@@ -217,24 +207,27 @@ function addEmployeeHTML(employee) {
 }
 
 function finishHTML() {
-  const html = ` </div>
-  </div>
-  
+  const html = ` 
+    <main>
+      <div>
+      </div>
+    </main>
   </body>
   </html>`;
 
-  fs.appendFile("./dist/output-HTML", 
-html, function (err) {
+  fs.appendFile("./dist/index.html", html, function (err) {
     if (err) {
       console.log(err);
     } else {
-      console.log(
-        "Team Profile complete! Check outoutput-HTML in dist directory to see the output!"
-      );
+      console.log(`
+      ==================================================================================
+      "Team Profile complete! Check index.html in dist directory to see the output!"
+      ==================================================================================
+      `);
     }
   });
 }
-
+initialize();
 
 
 
