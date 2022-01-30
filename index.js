@@ -16,14 +16,14 @@ async function initialize() {
 }
 
 console.log(`
-=========================================================+
-|                                                       ||
-|Answer these questions to generate a Team-Profile-Page ||
-|                                                       ||
-=========================================================
+==========================================================
+                                                      
+  Answer these questions to generate a Team-Profile-Page 
+                                                       
+==========================================================
 `);
 
-
+// Team title
 const nameTeam = () => {
   inquirer.prompt([
       {   type: "input",
@@ -43,7 +43,7 @@ const nameTeam = () => {
       
 
     
-// questions
+// Employee questions
 const employeeQuestions = () => {
   inquirer
     .prompt([
@@ -142,9 +142,8 @@ const employeeQuestions = () => {
 
 
 
-// add create HTML function
-function createHTML() {
-  
+// Add create HTML function
+function createHTML() { 
    const html = `<!DOCTYPE html>
    <html lang="en">
      <head>
@@ -168,8 +167,7 @@ function createHTML() {
   });
 }
 
-// add function that adds each employee to HTML
-
+// add function that appends each employee to HTML
 function addEmployeeHTML(employee) {
   return new Promise(function (resolve, reject) {
   let name = employee.getName();
@@ -236,6 +234,7 @@ function addEmployeeHTML(employee) {
  });
 }
 
+ // Function to complete HTML by appending file
 function finishHTML() {
   const html = ` 
       <footer class="bg-danger bg-gradient text-center text-light p-3 fixed-bottom">
@@ -256,4 +255,6 @@ function finishHTML() {
     }
   });
 }
+
+//call initalize function
 initialize();
