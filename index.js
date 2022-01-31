@@ -1,18 +1,18 @@
 const inquirer = require("inquirer");
 const fs = require("fs");
-
+const bodyHTML = require("./src/page-template");
+const engineerCard = require("./src/engineerCard");
+const managerCard = require("./src/managerCard");
+const internCard = require("./src/internCard");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 
-//team name 
-// team array
+// Team array
 let team = [];
 
 async function initialize() {
-    await nameTeam();
-    
-  
+  await nameTeam();
 }
 
 console.log(`
@@ -25,24 +25,23 @@ console.log(`
 
 // Team title
 const nameTeam = () => {
-  inquirer.prompt([
-      {   type: "input",
-          name: "teamName",
-          message: "Welcome to Team Profile Generator! Please enter your team name:",
-          
-      }
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "teamName",
+        message:
+          "Welcome to Team Profile Generator! Please enter your team name:",
+      },
     ])
-          .then(function(data) {
-           let teamName = data.teamName;
-           team.push(teamName);
-           employeeQuestions ();
-           createHTML();  
-    
-  }) 
-}
+    .then(function (data) {
+      let teamName = data.teamName;
+      team.push(teamName);
+      employeeQuestions();
       
+    });
+};
 
-    
 // Employee questions
 const employeeQuestions = () => {
   inquirer
@@ -64,14 +63,12 @@ const employeeQuestions = () => {
         name: "id",
         message: "What is their employee id? (enter a number)",
         validate: (idInput) => {
-          const valid =  /^[0-9]+$/.test(idInput);
+          const valid = /^[0-9]+$/.test(idInput);
           if (valid) {
             return true;
-          } else { 
-            console.log("Pleae enter a number.")            
-            return ;
-            
-            
+          } else {
+            console.log("Pleae enter a number.");
+            return;
           }
         },
       },
@@ -80,13 +77,14 @@ const employeeQuestions = () => {
         name: "email",
         message: "Please enter their email address.",
         validate: (email) => {
-          const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+          const valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+            email
+          );
           if (valid) {
             return true;
           } else {
             console.log("Please enter an email.");
             return false;
-            
           }
         },
       },
@@ -95,7 +93,7 @@ const employeeQuestions = () => {
         name: "role",
         message: "Please select employee's role.",
         choices: ["Manager", "Engineer", "Intern"],
-      }
+      },
     ])
     .then(function ({ name, role, id, email }) {
       let roleInfo = "";
@@ -104,7 +102,7 @@ const employeeQuestions = () => {
       } else if (role === "Engineer") {
         roleInfo = "GitHub username";
       } else {
-        roleInfo = "school name";
+        roleInfo = "school";
       }
       inquirer
         .prompt([
@@ -129,132 +127,45 @@ const employeeQuestions = () => {
             newEmployee = new Manager(name, id, email, roleInfo);
           }
           team.push(newEmployee);
-          addEmployeeHTML(newEmployee).then(function () {
-            if (addEmployees === "yes") {
-              employeeQuestions();
-            } else {
-              finishHTML();
-            }
-          });
+          //addEmployeeHTML(newEmployee).then(function () {
+          if (addEmployees === "yes") {
+            employeeQuestions();
+          } else {
+            finishHTML();
+          }
+          //});
         });
-      });
+    });
 };
 
-
-
-// Add create HTML function
-function createHTML() { 
-   const html = `<!DOCTYPE html>
-   <html lang="en">
-     <head>
-       <meta charset="UTF-8" />
-       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0" />       
-       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"/>
-       <link rel="stylesheet" href="./dist/style.css">
-       <title> Team Profile Generator | ${team[0]} </title>
-     </head>
-     <body class="bg-light">  
-       <header>
-         <h1 class="bg-danger bg-gradient text-center text-light p-3">${team[0]}</h1>
-       </header>`;
-
-  fs.writeFile("./dist/index.html", html, function (err) {
-    if (err) {
-      console.log(err);
+// Function to complete HTML by appending file
+function finishHTML() { 
+  let cards = "";
+  for (let i = 1; i < team.length; i++) {
+    if (team[i].getRole() === "Manager") {
+      cards = cards + managerCard(team[i]);
+    } else if(team[i].getRole() === "Engineer") {
+      cards = cards + engineerCard(team[i])
+    }else{
+      cards = cards + internCard(team[i])
+    
     }
-  });
-}
-
-// add function that appends each employee to HTML
-function addEmployeeHTML(employee) {
-  return new Promise(function (resolve, reject) {
-  let name = employee.getName();
-  let id = employee.getId();
-  let email = employee.getEmail();
-  let role = employee.getRole();
-  let data = "";
-  if (role === "Manager") {
-    let officeNumber = employee.getOfficeNumber();
-    data = `     
-    <div class="container d-flex flex-wrap justify-content-around">
-      <div class="card rounded-3 bg-secondary m-2 "style="width: 300px" >
-      <div class="card-title bg-primary text-light p-2">
-         <h3>${name}</h3>
-         <h5><i class="fas fa-coffee"></i> ${role}</h5>
-      </div>
-      <div class="card-body ">
-        <div class="list-group list-group-flush">
-          <div class="list-group-item">ID: ${id}</div>
-          <div class="list-group-item">Email: <a href="mailto:${email}"> ${email}</a></div>
-          <div class="list-group-item">Office Number: ${officeNumber}</div>
-        </div>
-       </div>
-      </div>`;
-  } else if (role === "Engineer") {
-    let github = employee.getGithub();
-    data = `
-    <div class="card rounded-3 bg-secondary m-2 " style="width: 300px" >
-      <div class="card-title bg-primary text-light p-2">
-        <h3>${name}</h3>
-        <h5><i class="fas fa-glasses"></i> ${role}</h5></div>
-      <div class="card-body ">
-        <div class="list-group list-group-flush">
-          <div class="list-group-item">ID: ${id}</div>
-          <div class="list-group-item">Email:<a href="mailto:${email}"> ${email}</a></div>
-          <div class="list-group-item">GitHub: <a href="https://github.com/${github}"target="_blank"> ${github}</a></div>
-        </div>
-     </div>
-    </div>`;
-  } else if (role === "Intern") {
-    let school = employee.getSchool();
-    data = `
-  <div class="card rounded-3 bg-secondary m-2" style="width: 300px" >
-   <div class="card-title bg-primary text-light p-2">
-     <h3>${name}</h3>
-     <h5><i class="fas fa-user-graduate"></i> ${role}</h5>
-   </div>
-  <div class="card-body ">
-    <div class="list-group list-group-flush">
-      <div class="list-group-item">ID: ${id}</div>
-      <div class="list-group-item">Email: <a href="mailto:${email}"> ${email}</a></div>
-      <div class="list-group-item">School:<a href="https://google.com/search?q=${school}"target="_blank">${school}</a></div>
-    </div>
-   </div>
-  </div>`;
   }
-
-  fs.appendFile("./dist/index.html", data, function (err) {
+  fs.writeFile("./dist/index.html", bodyHTML(team[0], cards), function(err) {
     if (err) {
-      return reject(err);
-    }
-    return resolve();
-  });
- });
-}
-
- // Function to complete HTML by appending file
-function finishHTML() {
-  const html = ` 
-      <footer class="bg-danger bg-gradient text-center text-light p-3 fixed-bottom">
-      <div>&copy;tooqk4u 2022 <bdo dir="rtl">&copy;</bdo></div>
-    </footer>
-  </body>
-  </html>`;
-
-  fs.appendFile("./dist/index.html", html, function (err) {
-    if (err) {
-      console.log(err);
+      console.log (err);
     } else {
       console.log(`
-      ===============================================================================
-      "Team Profile complete! Check index.html in dist directory to see the output!"
-      ===============================================================================
-      `);
-    }
-  });
-}
+    ===============================================================================
+     Team Profile complete! Check index.html in dist directory to see the output!
+    ===============================================================================
+    `);
+      
+    } 
+  })
+  
+};
+
 
 //call initalize function
 initialize();
