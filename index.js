@@ -12,7 +12,7 @@ const Intern = require("./lib/Intern");
 let team = [];
 
 async function initialize() {
-  await nameTeam();
+  await newFunction();
 }
 
 console.log(`
@@ -138,6 +138,10 @@ const employeeQuestions = () => {
     });
 };
 
+async function newFunction() {
+  await nameTeam();
+}
+
 // Function to complete HTML by appending file
 function finishHTML() { 
   let cards = "";
@@ -151,7 +155,7 @@ function finishHTML() {
     
     }
   }
-  fs.writeFile("./dist/index.html", bodyHTML(team[0], cards), function(err) {
+  fs.writeFileSync("./dist/index.html", bodyHTML(team[0], cards), function(err) {
     if (err) {
       console.log (err);
     } else {
