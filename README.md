@@ -12,6 +12,8 @@ This project uses node.js in order to utilize the command line to facilitate the
 enter the employee information (name, id, email, role and school, gitHub or office number based on role). At the end of
 questionaire a console log will run indicating the profile was generated successfully and which folder to look in to find the finished HTML file.
 
+##### SCREENSHOT EXAMPLE OF GENERATED TEAM PROFILE
+
 ![Project Screenshot](./assets/images/screenshot.PNG)
 ---
   
