@@ -13,7 +13,7 @@ enter the employee information (name, id, email, role and school, gitHub or offi
 questionaire a console log will run indicating the profile was generated successfully and which folder to look in to fi
 finished HTML file.
 
-![Project Screenshot](/assets/images/screenshot.PNG)
+![Project Screenshot](./assets/images/)
 ---
   
 ## Table of Contents 
