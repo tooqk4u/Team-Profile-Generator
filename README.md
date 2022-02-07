@@ -1,5 +1,6 @@
 # TEAM PROFILE GENERATOR
   [![MIT License](https://img.shields.io/badge/License-MIT%20License-informational)](https://choosealicense.com/licenses/mit/)
+  
 
 ---
 ## Link
@@ -7,9 +8,10 @@ https://github.com/tooqk4u/Team-Profile-Generator
 
 
 ## Description 
+![JavaScript](https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![node.js](https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)
   
-This project uses node.js in order to utilize the command line to facilitate the generation of Team Profile. The user w
-enter the employee information (name, id, email, role and school, gitHub or office number based on role). At the end of
+This project uses node.js and JavaScript in order to utilize the command line to facilitate the generation of Team Profile. This application will prompt the user a series of questions about various employees (Manager, Engineer, Intern). Prompted questions include name, employee ID number, and email. If entering an engineer, a GitHub username prompt is presented,if entering a manage, an office number pormpt is presented, and for intern a School question is asked instead. Multiple entries can be made based on how many employees there are. This application will completely write and style a HTML file to display on the web. At the end of
 questionaire a console log will run indicating the profile was generated successfully and which folder to look in to find the finished HTML file.
 
 ##### SCREENSHOT EXAMPLE OF GENERATED TEAM PROFILE
@@ -93,7 +95,18 @@ Please fork this directory. Email tooqk4u@protonmail.com if any questions
 
 ## Tests
 
-Please type npm run test in the command line
+This application uses jest.js to run the tests suites
+
+There are four test suites:
+
+1. Employee.test
+2. Engineer.test
+3. Intern.test
+4. Manager.test
+
+Each test is designed to ensure that the respective object is created with the appropriate properties and methods returning expected data.
+
+To run the tests, in the terminal envoke npm test. To envoke a specific test suite, envoke npm run test (name) where (name) is the suite (Employee, Engineer, Intern, or Manager).
 
 ---
 ---
