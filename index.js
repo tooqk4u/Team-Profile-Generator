@@ -157,18 +157,19 @@ function finishHTML() {
   }
   fs.writeFileSync("./dist/index.html", bodyHTML(team[0], cards), function(err) {
     if (err) {
-      console.log (err);
-    } else {
-      console.log(`
-    ===============================================================================
-     Team Profile complete! Check index.html in dist directory to see the output!
-    ===============================================================================
-    `);
-      
+      console.log (err)
     } 
   })
-  
+  console.log(`
+===============================================================================
+ Team Profile complete! Check index.html in dist directory to see the output!
+===============================================================================
+`);
 };
+
+
+
+
 
 
 //call initalize function
