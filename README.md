@@ -10,10 +10,9 @@ https://github.com/tooqk4u/Team-Profile-Generator
   
 This project uses node.js in order to utilize the command line to facilitate the generation of Team Profile. The user w
 enter the employee information (name, id, email, role and school, gitHub or office number based on role). At the end of
-questionaire a console log will run indicating the profile was generated successfully and which folder to look in to fi
-finished HTML file.
+questionaire a console log will run indicating the profile was generated successfully and which folder to look in to find the finished HTML file.
 
-![Project Screenshot](./assets/images/)
+![Project Screenshot](./assets/images/screenshot.PNG)
 ---
   
 ## Table of Contents 
