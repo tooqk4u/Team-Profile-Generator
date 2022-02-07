@@ -82,6 +82,8 @@ https://opensource.org/licenses/MIT
 ## Contributing
 
 Guidelines for contributions:
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/code_of_conduct.md)
+
 
 Please fork this directory. Email tooqk4u@protonmail.com if any questions
 
@@ -109,9 +111,13 @@ GitHub: [tooqk4u](https://github.com/tooqk4u).
 ## Credits 
  
 Shelley Soucie
+
 Andrew Hojnowski TA
+
 Ioannis Sporidis TA
+
 Malcolm Mason TA
+
 Philip Loy Tutor
 
 ---
