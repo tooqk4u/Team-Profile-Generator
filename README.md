@@ -58,13 +58,12 @@ This is a terminal prompt application. You must use the terminal to evoke and ru
 Follow these steps to use this application:
 
 1. In the terminal and repository main directory evoke node index.js
-2. You will be met with a prompt to enter information about your team manager.
-3. Once you finish entering the manager information, you will be met with a menu to select to either:
-- Add an Engineer to add information for an engineer,
-- Add an Intern to add information for an intern,
-- Finish Team to exit the prompts and generate the HTML and CSS page.
-4. Until you select Finish Team, you will continue to return to the menu to select to add another team member or finish the team.
-5. Once you select Finish Team, the console will alert you that the HTML file was generated using the provided information and the CSS file was copied. These will be available in the dist/ directory.
+2. You will be met with a prompt to enter information about your team title.
+3. Once you finish entering the title information, you will be prompted to enter the employee name, id and email. Then you will be prompted to select the employees role:
+- Choose an Engineer to add gitHub link,
+- Choose an Intern to add school infomation,
+- Chooose a Manager to add office numer,
+4. Once you have finished entering all the team employees/interns the select no when asked if you want to add another employee and the console will alert you that the HTML file was generated using the provided information and provides information on which directory to find the html file. 
 If there was an error, the console will alert you to it.
 
 See this walk-through video for full usage instructions: https://drive.google.com/file/d/1BK0zxFplFCFsAMtR0ldzekCgKHnRjgKS/view
